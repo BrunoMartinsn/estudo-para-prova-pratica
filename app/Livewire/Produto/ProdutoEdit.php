@@ -28,7 +28,7 @@ class ProdutoEdit extends Component
     protected $rules = [
          'nome' => 'required',
         'descricao' => 'required',
-        'preco' => 'required', // 'decimal' precisa de parâmetros. 'numeric' é mais genérico.
+        'preco' => 'required', 
         'quantidade' => 'required|integer',
         'quantidade_minima' => 'required|integer'
         

@@ -16,7 +16,7 @@ class ProdutoCreate extends Component
     protected $rules = [
         'nome' => 'required',
         'descricao' => 'required',
-        'preco' => 'required', // 'decimal' precisa de parâmetros. 'numeric' é mais genérico.
+        'preco' => 'required', 
         'quantidade' => 'required|integer',
         'quantidade_minima' => 'required|integer'
     ];
@@ -34,10 +34,10 @@ class ProdutoCreate extends Component
 
     public function store()
     {
-        // 1. Valida os dados antes de criar o produto
+      
         $this->validate();
 
-        // 2. Cria o produto no banco de dados
+      
         Produto::create([
             'nome' => $this->nome,
             'descricao' => $this->descricao,
@@ -46,15 +46,15 @@ class ProdutoCreate extends Component
             'quantidade_minima' => $this->quantidade_minima
         ]);
 
-        // 3. Limpa o formulário após o cadastro
+        
         $this->reset();
 
-        // 4. (Opcional) Emite um evento ou mostra uma mensagem de sucesso
-        session()->flash('success', 'Produto criado com sucesso!');
     
+        session()->flash('success', 'Produto criado com sucesso!');
+     return redirect()->route('produto-index');
     }
     public function render()
     {
-        return view('livewire.produto.produto-create');
+        return view('livewire.produto.produto-create', compact('produtos'));
     }
 }

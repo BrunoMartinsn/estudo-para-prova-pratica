@@ -10,12 +10,21 @@
 
 <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
     <div class="navbar-nav">
-        <a href="" class="nav-link active">Home</a>
+     
        
     </div>
 </div>
 
     </div>
+    <div class="d-flex align-items-center">
+    <span class="text-white me-3">
+        Olá, <strong>{{ Auth::check() ? Auth::user()->name : 'Visitante' }}</strong>
+    </span>
+    
+    <a href="{{ route('logout') }}" class="btn btn-outline-light btn-sm d-flex align-items-center">
+        <i class="bi bi-box-arrow-right me-2"></i> Sair
+    </a>
+</div>
 </nav>
 
 <!DOCTYPE html >

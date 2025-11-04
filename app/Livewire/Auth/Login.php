@@ -2,12 +2,12 @@
 
 namespace App\Livewire\Auth;
 
-use Illuminate\Container\Attributes\Auth;
+use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 
 class Login extends Component
 {
-      public $email;
+     public $email;
     public $password;
 
     protected $rules = [
@@ -16,24 +16,27 @@ class Login extends Component
     ];
 
     protected $messages = [
-        'email.required' => 'email obrigatório',
-        'email.email' => 'formato de email invalido',
-        'password.required' => 'password obrigatório',
-        'password.min' => 'senha deve conter no minimo 6 caracteres'
+        'email.required' => 'O email é obrigatório.',
+        'email.email' => 'O formato de email é inválido.',
+        'password.required' => 'A senha é obrigatória.',
+        'password.min' => 'A senha deve conter no mínimo 6 caracteres.'
     ];
-
 
     public function login()
     {
+        // Valida os dados
         $this->validate();
-       
-        if (Auth::attempt(['email' => $this->$email , 'password' => $this-> $password])) {
-            session()->regenerate();
-            return redirect()->route('deshboard');
-        }
 
-        session()->flash('error', 'Email e senha incorretos ');
+        // Tenta fazer o login
+        if (Auth::attempt(['email' => $this->email, 'password' => $this->password])) {
+    session()->regenerate();
+    return redirect()->route('user.dashboard');
+}
+
+        // Caso as credenciais estejam incorretas, exibe uma mensagem de erro
+        session()->flash('error', 'Email ou senha incorretos.');
     }
+
     public function render()
     {
         return view('livewire.auth.login');
