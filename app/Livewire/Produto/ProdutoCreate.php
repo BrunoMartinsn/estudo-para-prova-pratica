@@ -55,6 +55,7 @@ class ProdutoCreate extends Component
     }
     public function render()
     {
+        $produtos = Produto::all();
         return view('livewire.produto.produto-create', compact('produtos'));
     }
 }

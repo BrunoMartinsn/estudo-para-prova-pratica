@@ -38,6 +38,7 @@
                 <table class="table table-striped">
                     <thead>
                         <tr>
+                            <th>ID</th>
                             <th>Nome</th>
                             <th>descricao</th>
                             <th>preco</th>
@@ -49,6 +50,7 @@
                     <tbody>
                         @forelse($produtos as $produto)
                             <tr>
+                                 <td>{{ $produto->id }}</td>
                                 <td>{{ $produto->nome }}</td>
                                 <td>{{ $produto->descricao }}</td>
                                 <td>{{ $produto->preco }}</td>

@@ -17,18 +17,26 @@ public $sortDirection = 'asc';
     ];
     public function render()
     {
-          $movimentacoes = movimentacoes::join('produtos', 'movimentacoes.produto_id', '=', 'produtos.id')
+        $movimentacoes = movimentacoes::join('produtos', 'movimentacoes.produto_id', '=', 'produtos.id')
         ->select('movimentacoes.*', 'produtos.nome as nome')
-        ->where(function ($query) {
-            $query->where('produtos.nome', 'like', "%{$this->search}%")
-                  ->orWhere('movimentacoes.tipo', 'like', "%{$this->search}%")
-                  ->orWhere('movimentacoes.quantidade', 'like', "%{$this->search}%")
-                  ->orWhere('movimentacoes.data_movimentacao', 'like', "%{$this->search}%");
-        })
-        ->orderBy($this->sortField, $this->sortDirection)
+        ->where('produtos.nome', 'like', "%{$this->search}%")
+        ->orderBy($this->sortField, $this->sortDirection)  // Ordenação dinâmica
         ->paginate($this->perPage);
-        return view('livewire.movimentacoes.index', [
-        'movimentacoes' => movimentacoes::orderBy('created_at', 'desc')->paginate(10),
+
+
+    return view('livewire.movimentacoes.index', [
+        'movimentacoes' => $movimentacoes,
     ]);
+}
+
+public function sortBy($field)
+{
+    // Alterna a direção da ordenação
+    if ($this->sortField === $field) {
+        $this->sortDirection = $this->sortDirection === 'asc' ? 'desc' : 'asc';
+    } else {
+        $this->sortField = $field;
+        $this->sortDirection = 'asc';  // Reseta para ascendente quando muda o campo
     }
+}
 }

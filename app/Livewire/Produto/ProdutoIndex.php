@@ -17,7 +17,8 @@ class ProdutoIndex extends Component
     ];
     public function render()
     {
-         $produtos = Produto::where('nome', 'like', "%{$this->search}%")
+         $produtos = Produto::where('id', 'like', "%{$this->search}%")
+         ->orWhere('nome', 'like', "%{$this->search}%")
             ->orWhere('descricao', 'like', "%{$this->search}%")
              ->orWhere('preco', 'like', "%{$this->search}%")
               ->orWhere('quantidade', 'like', "%{$this->search}%")
